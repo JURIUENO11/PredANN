@@ -94,3 +94,9 @@ requirements.txt
 sequential_7s.sh               # Script for running the 7s experiments
 ```
 Please note that in the file ***main_checkpoint_7s.py***, the checkpoint path must be updated to correspond to the specific location of your checkpoint file. Additionally, the parameter ***evaluation_length*** can be modified to other durations, but it must not exceed 8 seconds (1000). Evaluations for 4s, 5s, 6s, and 7s have also been conducted using these codes by adjusting this parameter accordingly.
+
+### Notes
+- Ensure that the dataset is preprocessed before running experiments.
+- Checkpoint paths must be correctly configured in the evaluation scripts to avoid runtime errors.
+- The evaluation segment length parameter should not exceed 8 seconds to maintain consistency with the experimental design.
+- The provided Sequential scripts (e.g., ***sequential_3s.sh ***,  ***sequential_7s.sh ***) are configured with default parameters. Users may adjust these parameters according to their specific experimental requirements.
