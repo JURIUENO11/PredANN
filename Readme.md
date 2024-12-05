@@ -4,13 +4,18 @@
 Two separate 2D CNNs are employed to process music and EEG data independently. The outputs include individual losses for music and EEG, along with a contrastive loss for learning the relationship between the two modalities.
 ![image](https://github.com/Mind-Music-PJ/paper/blob/main/Picture9.png?raw=true) 
 ## Code Structure and Files
-
-
 ### How to run codes
-Run the sequential file command in the terminal window. For example, if you want to run 3s experiment, you should use the folder ***codes_3s***, and run ***nohup sh sequential_3s.sh > log/log.txt &*** in the terminal window. The precess will be recorded in ***log.txt***.
+To execute the experiments, follow the steps below:
 
+1. Navigate to the appropriate folder based on your experiment.
+   - For instance, for a 3-second experiment, go to the **codes_3s** directory.
 
+2. Execute the sequential script in the terminal using the command:
 
+   ***nohup sh sequential_3s.sh > log/log.txt &***
+
+4. The progress will be logged in ***log/log.txt***.
+   - You can review this file for detailed outputs.
 ### Dataset Path Configuration
 In both the 3-second (3s) and 7-second (7s) experiments, it is essential to modify the dataset path to match your local configuration. Specifically, in the files ***preprocessing_eegmusic_dataset_3s.py*** and ***preprocessing_eegmusic_dataset_7s.py***, the class ***Preprocessing_EEGMusic*** utilizes the dataset path to load data. By default, the path is set to ***_base_dir = "/workdir/share/NMED/NMED-T/NMED-T_dataset"***, which must be updated to reflect your local directory structure.
 
