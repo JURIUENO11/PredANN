@@ -3,24 +3,35 @@
 ## Neural Network Architecture
 Two separate 2D CNNs are employed to process music and EEG data independently. The outputs include individual losses for music and EEG, along with a contrastive loss for learning the relationship between the two modalities.
 ![image](https://github.com/Mind-Music-PJ/paper/blob/main/Picture9.png?raw=true) 
-## Code Structure and Files
-### How to run codes
-To execute the experiments, follow the steps below:
 
-1. Navigate to the appropriate folder based on your experiment.
-   - For instance, for a 3-second experiment, go to the **codes_3s** directory.
-
-2. Execute the sequential script in the terminal using the command:
-
-```nohup sh sequential_3s.sh > log/log.txt &```
-
-4. The progress will be logged in ***log/log.txt***.
+## How to run codes
+### Steps to Execute Experiments
+1. **Navigate to the appropriate folder**:
+   - For a **3-second experiment**, go to the **`codes_3s`** directory.
+2. **Run the sequential script** in the terminal:
+   ```bash
+   nohup sh sequential_3s.sh > log/log.txt & ```
+3. **Monitor the experiment's progress**:
+   - The progress is logged in **`log/log.txt`**.
    - You can review this file for detailed outputs.
-### Dataset Path Configuration
-In both the 3-second (3s) and 7-second (7s) experiments, it is essential to modify the dataset path to match your local configuration. Specifically, in the files ***preprocessing_eegmusic_dataset_3s.py*** and ***preprocessing_eegmusic_dataset_7s.py***, the class ***Preprocessing_EEGMusic*** utilizes the dataset path to load data. By default, the path is set to ***_base_dir = "/workdir/share/NMED/NMED-T/NMED-T_dataset"***, which must be updated to reflect your local directory structure.
 
-Sequential scripts (***sequential_3s.sh*** and ***sequential_7s.sh***) are provided to execute the experiments. These scripts include the necessary parameters for running the respective experiments.
-#### Code Structure for 3-Second Training and Evaluation
+### Dataset Path Configuration
+Ensure the dataset path matches your local configuration
+   - Modify the dataset path in **`preprocessing_eegmusic_dataset_3s.py**` and **`preprocessing_eegmusic_dataset_7s.py`**.
+   - The class **`Preprocessing_EEGMusic`** uses the dataset path to load data.
+   - By default, the path is set as:
+     ```python
+   _base_dir = "/workdir/share/NMED/NMED-T/NMED-T_dataset" ```
+   - Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are provided for executing experiments. These scripts include the necessary parameters for their respective experiments.
+
+### Notes
+- Ensure that the dataset is preprocessed before running experiments.
+- Checkpoint paths must be correctly configured in the evaluation scripts to avoid runtime errors.
+- The evaluation segment length parameter should not exceed 8 seconds to maintain consistency with the experimental design.
+- The provided Sequential scripts (e.g., ***sequential_3s.sh ***,  ***sequential_7s.sh ***) are configured with default parameters. Users may adjust these parameters according to their specific experimental requirements.
+
+## Code Structure and Files
+### Code Structure for 3-Second Training and Evaluation
 ```
 predann/
 ├── datasets/                      
@@ -55,7 +66,7 @@ main_3s.py                     # Main script for training and evaluating 3-secon
 requirements.txt               # Required Python packages   
 sequential_3s.sh               # Script for running the 3s experiments
 ```
-#### Code Structure for 7-Second Evaluation
+### Code Structure for 7-Second Evaluation
 ```
 predann/
 ├── datasets/                      
@@ -95,11 +106,7 @@ sequential_7s.sh               # Script for running the 7s experiments
 ```
 Please note that in the file ***main_checkpoint_7s.py***, the checkpoint path must be updated to correspond to the specific location of your checkpoint file. Additionally, the parameter ***evaluation_length*** can be modified to other durations, but it must not exceed 8 seconds (1000). Evaluations for 4s, 5s, 6s, and 7s have also been conducted using these codes by adjusting this parameter accordingly.
 
-### Notes
-- Ensure that the dataset is preprocessed before running experiments.
-- Checkpoint paths must be correctly configured in the evaluation scripts to avoid runtime errors.
-- The evaluation segment length parameter should not exceed 8 seconds to maintain consistency with the experimental design.
-- The provided Sequential scripts (e.g., ***sequential_3s.sh ***,  ***sequential_7s.sh ***) are configured with default parameters. Users may adjust these parameters according to their specific experimental requirements.
+
 
 ## License
 This project is under the CC-BY-SA 4.0 license. See [LICENSE](LICENSE) for details.
