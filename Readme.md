@@ -21,7 +21,7 @@ Ensure the dataset path matches your local configuration
    - Modify the dataset path in **`preprocessing_eegmusic_dataset_3s.py`** and **`preprocessing_eegmusic_dataset_7s.py`**.
    - The class **`Preprocessing_EEGMusic`** uses the dataset path to load data.
    - By default, the path is set as:
-``` python
+```python
    _base_dir = "/workdir/share/NMED/NMED-T/NMED-T_dataset" 
 ```
    - Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are provided for executing experiments. These scripts include the necessary parameters for their respective experiments.
