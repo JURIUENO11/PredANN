@@ -10,7 +10,8 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
    - For a **3-second experiment**, go to the **`codes_3s`** directory.
 2. **Run the sequential script** in the terminal:
    ```bash
-   nohup sh sequential_3s.sh > log/log.txt & 
+   nohup sh sequential_3s.sh > log/log.txt &
+   ```
 3. **Monitor the experiment's progress**:
    - The progress is logged in **`log/log.txt`**.
    - You can review this file for detailed outputs.
