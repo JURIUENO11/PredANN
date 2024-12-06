@@ -100,3 +100,9 @@ Please note that in the file ***main_checkpoint_7s.py***, the checkpoint path mu
 - Checkpoint paths must be correctly configured in the evaluation scripts to avoid runtime errors.
 - The evaluation segment length parameter should not exceed 8 seconds to maintain consistency with the experimental design.
 - The provided Sequential scripts (e.g., ***sequential_3s.sh ***,  ***sequential_7s.sh ***) are configured with default parameters. Users may adjust these parameters according to their specific experimental requirements.
+
+## License
+This project is under the CC-BY-SA 4.0 license. See [LICENSE](LICENSE) for details.
+
+## Copyright
+Copyright (c) 2024 Sony Computer Science Laboratories, Inc., Tokyo, Japan. All rights reserved. This source code is licensed under the [LICENSE](LICENSE).
