@@ -12,7 +12,7 @@ To execute the experiments, follow the steps below:
 
 2. Execute the sequential script in the terminal using the command:
 
-   ***nohup sh sequential_3s.sh > log/log.txt &***
+```nohup sh sequential_3s.sh > log/log.txt &```
 
 4. The progress will be logged in ***log/log.txt***.
    - You can review this file for detailed outputs.
