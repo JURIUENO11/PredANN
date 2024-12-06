@@ -10,14 +10,14 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
    - For a **3-second experiment**, go to the **`codes_3s`** directory.
 2. **Run the sequential script** in the terminal:
    ```bash
-   nohup sh sequential_3s.sh > log/log.txt & ```
+   nohup sh sequential_3s.sh > log/log.txt & 
 3. **Monitor the experiment's progress**:
    - The progress is logged in **`log/log.txt`**.
    - You can review this file for detailed outputs.
 
 ### Dataset Path Configuration
 Ensure the dataset path matches your local configuration
-   - Modify the dataset path in **`preprocessing_eegmusic_dataset_3s.py**` and **`preprocessing_eegmusic_dataset_7s.py`**.
+   - Modify the dataset path in **`preprocessing_eegmusic_dataset_3s.py`** and **`preprocessing_eegmusic_dataset_7s.py`**.
    - The class **`Preprocessing_EEGMusic`** uses the dataset path to load data.
    - By default, the path is set as:
      ```python
