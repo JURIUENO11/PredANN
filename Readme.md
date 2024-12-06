@@ -21,7 +21,7 @@ Ensure the dataset path matches your local configuration
    - Modify the dataset path in **`preprocessing_eegmusic_dataset_3s.py`** and **`preprocessing_eegmusic_dataset_7s.py`**.
    - The class **`Preprocessing_EEGMusic`** uses the dataset path to load data.
    - By default, the path is set as:
-```python
+``` python
    _base_dir = "/workdir/share/NMED/NMED-T/NMED-T_dataset" 
 ```
    - Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are provided for executing experiments. These scripts include the necessary parameters for their respective experiments.
@@ -30,7 +30,7 @@ Ensure the dataset path matches your local configuration
 - Ensure that the dataset is preprocessed before running experiments.
 - Checkpoint paths must be correctly configured in the evaluation scripts to avoid runtime errors.
 - The evaluation segment length parameter should not exceed 8 seconds to maintain consistency with the experimental design.
-- The provided Sequential scripts (e.g., ***sequential_3s.sh ***,  ***sequential_7s.sh ***) are configured with default parameters. Users may adjust these parameters according to their specific experimental requirements.
+- The provided Sequential scripts (e.g., **`sequential_3s.sh`**,  **`sequential_7s.sh`**) are configured with default parameters. Users may adjust these parameters according to their specific experimental requirements.
 
 ## Code Structure and Files
 ### Code Structure for 3-Second Training and Evaluation
