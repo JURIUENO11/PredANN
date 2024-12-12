@@ -25,12 +25,12 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
    from .evaluation_mean_7s import EEGContrastiveLearning
 ```
    - You can change **`evaluation_mean_7s`** to **`evaluation_max_7s`** or **`evaluation_majority_7s`**.
-3. **Load the checkpoint** in the evaluation code file such as **`codes_7s\main_checkpoint.py`**, line 125 and 129:
+3. **Load the checkpoint** in the main file **`codes_7s\main_checkpoint.py`**, line 125 and 129:
 ```python
-   resume_from_checkpoint="/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+   resume_from_checkpoint="checkpoint_example.ckpt"
 ```
 ```python
-   checkpoint_path = "/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+   checkpoint_path = "checkpoint_example.ckpt"
 ```
    - We provide a checkpoint example which can make the code run, but the check point is not trained. Change the checkpoint path top your own path. 
 4. **Run the sequential script** in the terminal:
