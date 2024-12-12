@@ -6,6 +6,7 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
 
 ## How to run codes
 ### Steps to Execute Experiments
+#### For 3s experiment
 1. **Navigate to the appropriate folder**:
    - For a **3-second experiment**, go to the **`codes_3s`** directory.
 2. **Run the sequential script** in the terminal:
@@ -13,6 +14,30 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
    nohup sh sequential_3s.sh > log/log.txt &
 ```
 3. **Monitor the experiment's progress**:
+   - The progress is logged in **`log/log.txt`**.
+   - You can review this file for detailed outputs.
+
+#### For 7s experiment
+1. **Navigate to the appropriate folder**:
+   - For a **7-second experiment**, go to the **`codes_7s`** directory.
+2. **Load the appropriate method for evaluation** in the **`codes_7s\predann\modules\_init_.py`**, line 2:
+```python
+   from .evaluation_mean_7s import EEGContrastiveLearning
+```
+   - You can change **`evaluation_mean_7s`** to **`evaluation_max_7s`** or **`evaluation_majority_7s`**.
+3. **Load the checkpoint** in the evaluation code file such as **`codes_7s\main_checkpoint.py`**, line 125 and 129:
+```python
+   resume_from_checkpoint="/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+```
+```python
+   checkpoint_path = "/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+```
+   - We provide a checkpoint example which can make the code run, but the check point is not trained. Change the checkpoint path top your own path. 
+4. **Run the sequential script** in the terminal:
+```bash
+   nohup sh sequential_7s.sh > log/log.txt &
+```
+5. **Monitor the experiment's progress**:
    - The progress is logged in **`log/log.txt`**.
    - You can review this file for detailed outputs.
 
@@ -39,7 +64,6 @@ predann/
 ├── datasets/                      
 │   ├── __init__.py                # Initialization file for the datasets module for 3s experiments
 │   ├── dataset.py                 # Base class for datasets
-│   ├── nmed_dataset.py            # Script for handling the NMED dataset
 │   └── preprocessing_eegmusic_dataset_3s.py # Preprocessing script for EEG and music data (3-second segments)
 │
 ├── models/                        
@@ -63,7 +87,6 @@ config/
 log/                           
 └── log.txt                    # Log file for recording training and evaluation progress
 
-LICENSE                        # License information
 main_3s.py                     # Main script for training and evaluating 3-second segments
 requirements.txt               # Required Python packages   
 sequential_3s.sh               # Script for running the 3s experiments
@@ -74,7 +97,6 @@ predann/
 ├── datasets/                      
 │   ├── __init__.py                # Initialization file for the datasets module for 7s experiments
 │   ├── dataset.py                 
-│   ├── nmed_dataset.py            
 │   └── preprocessing_eegmusic_dataset_7s.py # Preprocessing script for EEG and music data (7-second segments)
 │
 ├── models/                        
@@ -100,8 +122,7 @@ config/
 log/                          
 └── log.txt                   
                       
-epoch-5999-step-149999.ckpt    # Saved model checkpoint
-LICENSE  
+checkpoint_example.ckpt        # Model checkpoint example
 main_checkpoint_7s.py          # Main script for evaluating 7-second segments
 requirements.txt                     
 sequential_7s.sh               # Script for running the 7s experiments
