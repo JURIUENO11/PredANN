@@ -7,39 +7,53 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
 ## How to run codes
 ### Steps to Execute Experiments
 #### For 3s experiment
-1. **Navigate to the appropriate folder**:
+1. **Navigate to the appropriate folder**
    - For a **3-second experiment**, go to the **`codes_3s`** directory.
-2. **Run the sequential script** in the terminal:
+2. **Run the experiment**
+Execute the experiment script in the terminal using the following command:
 ```bash
    nohup sh sequential_3s.sh > log/log.txt &
 ```
-3. **Monitor the experiment's progress**:
-   - The progress is logged in **`log/log.txt`**.
-   - You can review this file for detailed outputs.
+   - Output logs are saved to **`log/log.txt`**.
+3. **Monitor the experiment's progress**
+You can monitor the experiment's progress by checking the log file
+   - The log file contains real-time outputs.
 
 #### For 7s experiment
-1. **Navigate to the appropriate folder**:
+1. **Navigate to the appropriate folder**
    - For a **7-second experiment**, go to the **`codes_7s`** directory.
-2. **Load the appropriate method for evaluation** in the **`codes_7s\predann\modules\_init_.py`**, line 2:
+2. **Specify the Evaluation Method**
+   The evaluation method can be set in the file
+   **`codes_7s/predann/modules/_init_.py`**.
+   - Locate **line 2** in **`__init__.py`**:
 ```python
    from .evaluation_mean_7s import EEGContrastiveLearning
 ```
-   - You can change **`evaluation_mean_7s`** to **`evaluation_max_7s`** or **`evaluation_majority_7s`**.
-3. **Load the checkpoint** in the main file **`codes_7s\main_checkpoint.py`**, line 125 and 129:
-```python
-   resume_from_checkpoint="checkpoint_example.ckpt"
-```
-```python
-   checkpoint_path = "checkpoint_example.ckpt"
-```
-   - We provide a checkpoint example which can make the code run, but the check point is not trained. Change the checkpoint path top your own path. 
-4. **Run the sequential script** in the terminal:
+   - To use a different evaluation method, replace **`.evaluation_mean_7s`** with one of the following:
+      - **`.evaluation_max_7s`** 
+      - **`.evaluation_majority_7s`**.
+3. **Load the checkpoint**
+To resume evaluation, specify the **checkpoint path** in the evaluation script.
+   - Open **`codes_7s\main_checkpoint.py`**
+   - Update the following lines:
+      - **Line 125**
+         ```python
+            resume_from_checkpoint="checkpoint_example.ckpt"
+         ```
+      - **Line 129**
+         ```python
+            checkpoint_path = "checkpoint_example.ckpt"
+         ```
+   - We provide an example checkpoint (**`checkpoint_example.ckpt`**) for demonstration purposes. It is untrained. Replace it with your trained checkpoint. 
+4. **Run the experiment**
+Execute the experiment script in the terminal using the following command:
 ```bash
    nohup sh sequential_7s.sh > log/log.txt &
 ```
-5. **Monitor the experiment's progress**:
-   - The progress is logged in **`log/log.txt`**.
-   - You can review this file for detailed outputs.
+   - Output logs are saved to **`log/log.txt`**.
+5. **Monitor the experiment's progress**
+You can monitor the experiment's progress by checking the log file
+   - The log file contains real-time outputs.
 
 ### Dataset Path Configuration
 Ensure the dataset path matches your local configuration
