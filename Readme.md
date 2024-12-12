@@ -7,23 +7,23 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
 ## How to run codes
 ### Steps to Execute Experiments
 #### For 3s experiment
-1. **Navigate to the appropriate folder**
+1. **Navigate to the appropriate folder**  
    - For a **3-second experiment**, go to the **`codes_3s`** directory.
-2. **Run the experiment**
+2. **Run the experiment**  
 Execute the experiment script in the terminal using the following command:
 ```bash
    nohup sh sequential_3s.sh > log/log.txt &
 ```
    - Output logs are saved to **`log/log.txt`**.
-3. **Monitor the experiment's progress**
-You can monitor the experiment's progress by checking the log file
+3. **Monitor the experiment's progress**  
+You can monitor the experiment's progress by checking the log file  
    - The log file contains real-time outputs.
 
 #### For 7s experiment
-1. **Navigate to the appropriate folder**
+1. **Navigate to the appropriate folder**  
    - For a **7-second experiment**, go to the **`codes_7s`** directory.
-2. **Specify the Evaluation Method**
-   The evaluation method can be set in the file
+2. **Specify the Evaluation Method**  
+   The evaluation method can be set in the file  
    **`codes_7s/predann/modules/_init_.py`**.
    - Locate **line 2** in **`__init__.py`**:
 ```python
@@ -32,8 +32,8 @@ You can monitor the experiment's progress by checking the log file
    - To use a different evaluation method, replace **`.evaluation_mean_7s`** with one of the following:
       - **`.evaluation_max_7s`** 
       - **`.evaluation_majority_7s`**.
-3. **Load the checkpoint**
-To resume evaluation, specify the **checkpoint path** in the evaluation script.
+3. **Load the checkpoint**  
+To resume evaluation, specify the **checkpoint path** in the evaluation script.  
    - Open **`codes_7s\main_checkpoint.py`**
    - Update the following lines:
       - **Line 125**
@@ -61,19 +61,19 @@ To ensure successful execution, configure the dataset paths to match your local 
   Update the dataset path in the following preprocessing scripts:
    - **`preprocessing_eegmusic_dataset_3s.py`**
    - **`preprocessing_eegmusic_dataset_7s.py`**.
-   - The **`Preprocessing_EEGMusic`** class loads the dataset using **`_base_dir`**.
+   - The **`Preprocessing_EEGMusic`** class loads the dataset using **`_base_dir`**.  
      In our example, the path is set as:
       ```python
          _base_dir = "/workdir/share/NMED/NMED-T/NMED-T_dataset" 
       ```
-   - Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are provided for executing experiments.
+   - Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are provided for executing experiments.  
      These scripts include the necessary parameters for their respective experiments.
 
 ### Important Notes
 - Ensure that the dataset is preprocessed **before** running experiments.
 - Verify the checkpoint paths are correctly specified in the evaluation scripts. Incorrect paths will lead to runtime errors.
 - To maintain consistency with the experimental design, the evaluation segment length **must not exceed 8 seconds**.
-- The provided Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are pre-configured with default parameters.
+- The provided Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are pre-configured with default parameters.  
   Users may adjust these parameters according to their specific experimental requirements.
 
 ## Code Structure and Files
