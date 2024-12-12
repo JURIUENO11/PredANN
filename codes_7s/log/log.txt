@@ -1,19 +1,0 @@
-Global seed set to 42
-GPU available: True, used: True
-TPU available: False, using: 0 TPU cores
-IPU available: False, using: 0 IPUs
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
-2024-12-05 06:24:52.439428: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-12-05 06:24:52.578865: I tensorflow/core/util/port.cc:104] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2024-12-05 06:24:53.117367: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /usr/local/nvidia/lib:/usr/local/nvidia/lib64
-2024-12-05 06:24:53.117433: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /usr/local/nvidia/lib:/usr/local/nvidia/lib64
-2024-12-05 06:24:53.117441: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
-no augmentation
-check
-Size of train dataset: 1200
-Size of valid dataset: 5600
-EEG Contrastive learning
-use CLIP_loss as criterion
-[[[ START ]]] 2024-12-05 06:24:50.755540
-Validating: 0it [00:00, ?it/s]Validating:   0%|          | 0/5600 [00:00<?, ?it/s]Validating:   0%|          | 1/5600 [00:01<1:47:39,  1.15s/it]Validating:   0%|          | 5/5600 [00:01<18:25,  5.06it/s]  Validating:   0%|          | 8/5600 [00:01<11:08,  8.36it/s]Validating:   0%|          | 11/5600 [00:01<08:17, 11.23it/s]Validating:   0%|          | 14/5600 [00:01<06:24, 14.53it/s]Validating:   0%|          | 17/5600 [00:01<05:26, 17.11it/s]Validating:   0%|          | 20/5600 [00:01<04:50, 19.22it/s]Validating:   0%|          | 23/5600 [00:01<04:18, 21.57it/s]Validating:   0%|          | 26/5600 [00:02<04:02, 22.96it/s]Validating:   1%|          | 29/5600 [00:02<03:54, 23.78it/s]Validating:   1%|          | 32/5600 [00:02<03:41, 25.18it/s]Validating:   1%|          | 35/5600 [00:02<03:37, 25.62it/s]Validating:   1%|          | 38/5600 [00:02<03:32, 26.17it/s]Validating:   1%|          | 41/5600 [00:02<03:36, 25.66it/s]Validating:   1%|          | 45/5600 [00:02<03:22, 27.49it/s]Validating:   1%|          | 48/5600 [00:02<03:18, 27.92it/s]Validating:   1%|          | 51/5600 [00:02<03:20, 27.72it/s]Validating:   1%|          | 54/5600 [00:03<03:23, 27.29it/s]Validating:   1%|          | 57/5600 [00:03<03:21, 27.47it/s]Validating:   1%|          | 61/5600 [00:03<03:16, 28.20it/s]Validating:   1%|          | 64/5600 [00:03<03:14, 28.39it/s]Validating:   1%|          | 67/5600 [00:03<03:14, 28.41it/s]Validating:   1%|▏         | 70/5600 [00:03<03:16, 28.11it/s]Validating:   1%|▏         | 73/5600 [00:03<03:16, 28.09it/s]Validating:   1%|▏         | 76/5600 [00:03<03:17, 27.97it/s]Validating:   1%|▏         | 79/5600 [00:03<03:18, 27.88it/s]Validating:   1%|▏         | 82/5600 [00:04<03:18, 27.81it/s]Validating:   2%|▏         | 85/5600 [00:04<03:19, 27.71it/s]Validating:   2%|▏         | 88/5600 [00:04<03:23, 27.07it/s]
