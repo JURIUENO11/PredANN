@@ -122,11 +122,11 @@ if __name__ == "__main__":
         log_every_n_steps=1,
         check_val_every_n_epoch=1,
         accelerator=args.accelerator,
-        resume_from_checkpoint="/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+        resume_from_checkpoint="checkpoint_example.ckpt"
     )
     print('[[[ START ]]]',datetime.datetime.now())
    
-    checkpoint_path = "/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+    checkpoint_path = "checkpoint_example.ckpt"
     checkpoint = torch.load(checkpoint_path)
     module.load_state_dict(checkpoint['state_dict'])
     trainer.validate(module,dataloaders=valid_loader)
