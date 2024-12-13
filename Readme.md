@@ -18,6 +18,10 @@ Execute the experiment script in the terminal using the following command:
 3. **Monitor the experiment's progress**  
 You can monitor the experiment's progress by checking the log file  
    - The log file contains real-time outputs.
+4. **Verification of results**  
+The experimental outcomes can be validated by examining the trained model saved under **`codes_3s/run`**.  
+   - The generated checkpoint files are stored in this directory and can be utilized for subsequent 7s experiments.  
+   - To customize the checkpoint naming convention, modify the **`training_date`** parameter within the script **`sequential_3s.sh`**.  
 
 #### For 7s experiment
 1. **Navigate to the appropriate folder**  
