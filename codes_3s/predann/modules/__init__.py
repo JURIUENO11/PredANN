@@ -1,2 +1,0 @@
-from .clip_loss import CLIP_Loss
-from .contrastive_learning_3s import EEGContrastiveLearning

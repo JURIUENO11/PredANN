@@ -1,31 +1,0 @@
-Global seed set to 42
-GPU available: True, used: True
-TPU available: False, using: 0 TPU cores
-IPU available: False, using: 0 IPUs
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
-2024-12-11 07:05:19.946497: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-12-11 07:05:20.091193: I tensorflow/core/util/port.cc:104] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2024-12-11 07:05:20.633115: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /usr/local/nvidia/lib:/usr/local/nvidia/lib64
-2024-12-11 07:05:20.633182: W tensorflow/compiler/xla/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /usr/local/nvidia/lib:/usr/local/nvidia/lib64
-2024-12-11 07:05:20.633206: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
-
-  | Name          | Type           | Params
--------------------------------------------------
-0 | encoder_eeg   | SampleCNN2DEEG | 130 K 
-1 | encoder_audio | SampleCNN2DEEG | 130 K 
-2 | criterion     | CLIP_Loss      | 0     
--------------------------------------------------
-260 K     Trainable params
-0         Non-trainable params
-260 K     Total params
-1.041     Total estimated model params size (MB)
-no augmentation
-check
-Size of train dataset: 1200
-Size of valid dataset: 5600
-EEG Contrastive learning
-use CLIP_loss as criterion
-[[[ START ]]] 2024-12-11 07:05:18.288910
-Validation sanity check: 0it [00:00, ?it/s]Validation sanity check:   0%|          | 0/2 [00:00<?, ?it/s]Validation sanity check:  50%|█████     | 1/2 [00:01<00:01,  1.34s/it]                                                                      Global seed set to 42
-Training: -1it [00:00, ?it/s]Training:   0%|          | 0/600 [00:00<00:00, 24672.38it/s]Epoch 0:   0%|          | 0/600 [00:00<00:00, 5526.09it/s]  Epoch 0:   0%|          | 1/600 [00:01<05:17,  1.89it/s]  Epoch 0:   0%|          | 1/600 [00:01<05:17,  1.88it/s, loss=4.82, v_num=6]Epoch 0:   0%|          | 2/600 [00:01<04:00,  2.49it/s, loss=4.82, v_num=6]Epoch 0:   0%|          | 2/600 [00:01<04:00,  2.49it/s, loss=4.71, v_num=6]Epoch 0:   0%|          | 3/600 [00:01<03:20,  2.98it/s, loss=4.71, v_num=6]Epoch 0:   0%|          | 3/600 [00:01<03:20,  2.98it/s, loss=4.55, v_num=6]Epoch 0:   1%|          | 4/600 [00:01<02:56,  3.37it/s, loss=4.55, v_num=6]Epoch 0:   1%|          | 4/600 [00:01<02:56,  3.37it/s, loss=4.64, v_num=6]Epoch 0:   1%|          | 5/600 [00:01<02:40,  3.70it/s, loss=4.64, v_num=6]Epoch 0:   1%|          | 5/600 [00:01<02:40,  3.70it/s, loss=4.68, v_num=6]Epoch 0:   1%|          | 6/600 [00:01<02:29,  3.97it/s, loss=4.68, v_num=6]Epoch 0:   1%|          | 6/600 [00:01<02:29,  3.97it/s, loss=4.55, v_num=6]Epoch 0:   1%|          | 7/600 [00:01<02:21,  4.21it/s, loss=4.55, v_num=6]Epoch 0:   1%|          | 7/600 [00:01<02:21,  4.20it/s, loss=4.55, v_num=6]Epoch 0:   1%|▏         | 8/600 [00:02<02:13,  4.42it/s, loss=4.55, v_num=6]Epoch 0:   1%|▏         | 8/600 [00:02<02:13,  4.42it/s, loss=4.65, v_num=6]Epoch 0:   2%|▏         | 9/600 [00:02<02:07,  4.62it/s, loss=4.65, v_num=6]Epoch 0:   2%|▏         | 9/600 [00:02<02:08,  4.62it/s, loss=4.77, v_num=6]Epoch 0:   2%|▏         | 10/600 [00:02<02:03,  4.77it/s, loss=4.77, v_num=6]Epoch 0:   2%|▏         | 10/600 [00:02<02:03,  4.77it/s, loss=4.81, v_num=6]Epoch 0:   2%|▏         | 11/600 [00:02<01:59,  4.93it/s, loss=4.81, v_num=6]Epoch 0:   2%|▏         | 11/600 [00:02<01:59,  4.93it/s, loss=4.89, v_num=6]Epoch 0:   2%|▏         | 12/600 [00:02<01:56,  5.06it/s, loss=4.89, v_num=6]Epoch 0:   2%|▏         | 12/600 [00:02<01:56,  5.06it/s, loss=4.91, v_num=6]Epoch 0:   2%|▏         | 13/600 [00:02<01:53,  5.17it/s, loss=4.91, v_num=6]Epoch 0:   2%|▏         | 13/600 [00:02<01:53,  5.17it/s, loss=4.83, v_num=6]Epoch 0:   2%|▏         | 14/600 [00:02<01:50,  5.28it/s, loss=4.83, v_num=6]Epoch 0:   2%|▏         | 14/600 [00:02<01:51,  5.28it/s, loss=4.95, v_num=6]Epoch 0:   2%|▎         | 15/600 [00:02<01:48,  5.38it/s, loss=4.95, v_num=6]Epoch 0:   2%|▎         | 15/600 [00:02<01:48,  5.38it/s, loss=4.83, v_num=6]Epoch 0:   3%|▎         | 16/600 [00:03<01:46,  5.47it/s, loss=4.83, v_num=6]Epoch 0:   3%|▎         | 16/600 [00:03<01:46,  5.47it/s, loss=4.95, v_num=6]Epoch 0:   3%|▎         | 17/600 [00:03<01:44,  5.56it/s, loss=4.95, v_num=6]Epoch 0:   3%|▎         | 17/600 [00:03<01:44,  5.56it/s, loss=4.9, v_num=6] Epoch 0:   3%|▎         | 18/600 [00:03<01:43,  5.64it/s, loss=4.9, v_num=6]Epoch 0:   3%|▎         | 18/600 [00:03<01:43,  5.64it/s, loss=4.93, v_num=6]
