@@ -2,7 +2,7 @@
 
 ## Neural Network Architecture
 Two separate 2D CNNs are employed to process music and EEG data independently. The outputs include individual losses for music and EEG, along with a contrastive loss for learning the relationship between the two modalities.
-![image](https://github.com/Mind-Music-PJ/paper/blob/main/Picture9.png?raw=true) 
+![image](Model_structure.jpg) 
 
 ## How to run codes
 ### Steps to Execute Experiments
