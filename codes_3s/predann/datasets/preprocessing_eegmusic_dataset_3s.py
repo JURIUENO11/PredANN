@@ -317,7 +317,7 @@ class Preprocessing_EEGMusic_dataset(Dataset):
             eeg_start = random.randint(int((self.audio_clip-3)/2*125), int(eeg_length-self.eeg_clip_length-(self.audio_clip-3)/2*125-1))
             eeg = eeg[:, eeg_start : eeg_start + self.eeg_clip_length]
 
-            audio_start = int(eeg_start/125 * 44100)+int((self.audio_clip-3)/2*125)
+            audio_start = int(eeg_start/125 * 44100)-int((self.audio_clip-3)/2*125)
             audio = audio[:, int(audio_start) : int(audio_start + self.audio_clip * 44100)] 
             debug_logger.debug(f"audio, {audio.shape}")
 
