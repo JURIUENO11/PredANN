@@ -335,7 +335,7 @@ class Preprocessing_EEGMusic_dataset(Dataset):
         if isClip:  
             eeg_length = eeg.size(1)
             eeg_start = random.randint(int((self.audio_clip-3)/2*125), int(eeg_length-self.evaluation_length-(self.audio_clip-3)/2*125-1))
-            audio_start = int(eeg_start/125 * 44100)+int((self.audio_clip-3)/2*125)
+            audio_start = int(eeg_start/125 * 44100)-int((self.audio_clip-3)/2*125)
             evaluation_length=self.evaluation_length
             
             for i in range(int((evaluation_length-375)/125+1)):
