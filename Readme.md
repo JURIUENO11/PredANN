@@ -40,11 +40,11 @@ The experimental outcomes can be validated by examining the trained model saved 
 To resume evaluation, specify the **checkpoint path** in the evaluation script.  
    - Open **`codes_7s\main_checkpoint.py`**
    - Update the following lines:
-      - **Line 125**
+      - **Line 120**
          ```python
             resume_from_checkpoint="checkpoint_example.ckpt"
          ```
-      - **Line 129**
+      - **Line 124**
          ```python
             checkpoint_path = "checkpoint_example.ckpt"
          ```
