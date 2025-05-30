@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torch.distributed as dist
 
-
 class PredANN_Loss(nn.Module):
     def __init__(self, batch_size, temperature, detach, world_size):
         super(PredANN_Loss, self).__init__()
@@ -10,7 +9,6 @@ class PredANN_Loss(nn.Module):
         self.temperature = temperature
         self.world_size = world_size
         self.detach=detach
-
         self.mask = self.mask_correlated_samples(batch_size, world_size)
         self.criterion = nn.CrossEntropyLoss(reduction="sum")
         self.similarity_f = nn.CosineSimilarity(dim=2)
@@ -23,6 +21,7 @@ class PredANN_Loss(nn.Module):
             mask[i, batch_size*world_size + i] = 0
             mask[batch_size*world_size + i, i] = 0
             mask[batch_size*world_size+i,batch_size*world_size:N]=0
+
         return mask
 
     def forward(self, z_i, z_j):
@@ -39,7 +38,6 @@ class PredANN_Loss(nn.Module):
         sim_i_j = torch.diag(sim, self.batch_size * self.world_size)
         sim_j_i = torch.diag(sim, -self.batch_size * self.world_size)
 
-        # We have 2N samples, but with Distributed training every GPU gets N examples too, resulting in: 2xNxN
         positive_samples = torch.cat((sim_i_j, sim_j_i), dim=0).reshape(N, 1)
         negative_samples = sim[self.mask].reshape(N, -1)
 
@@ -47,4 +45,5 @@ class PredANN_Loss(nn.Module):
         logits = torch.cat((positive_samples, negative_samples), dim=1)
         loss = self.criterion(logits, labels)
         loss /= N
+
         return loss

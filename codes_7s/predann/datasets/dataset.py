@@ -4,13 +4,11 @@ import torchaudio
 from torch.utils.data import Dataset as TorchDataset
 from abc import abstractmethod
 
-
 def preprocess_audio(source, target, sample_rate):
     p = subprocess.Popen(
         ["ffmpeg", "-i", source, "-ar", str(sample_rate), "-ac", "1", target, "-loglevel", "quiet"]
     )
     p.wait()
-
 
 class Dataset(TorchDataset):
 

@@ -27,7 +27,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     pl.seed_everything(args.seed, workers=True)
 
-
     train_transform = {}
     if args.openmiir_augmentation == "gaussiannoise":
         train_transform = [
@@ -54,7 +53,6 @@ if __name__ == "__main__":
     train_log = pd.DataFrame(columns=["Loss/train", "Accuracy/train_eeg", "Accuracy/train_audio"])
     valid_log = pd.DataFrame(columns=["Loss/valid", "Accuracy/valid_eeg", "Accuracy/valid_audio"])
 
-
     train_dataset = get_dataset(args.dataset, args.dataset_dir, subset="SW_train", download=False)
     train_dataset.set_sliding_window_parameters(args.window_size, args.stride)
     train_dataset.set_eeg_normalization(args.eeg_normalization, args.clamp_value)
@@ -62,7 +60,6 @@ if __name__ == "__main__":
     random.seed(42)
     train_random_numbers = [random.randint(0, 125 * 30 - 375 - 1) for _ in range(1200)]
     train_dataset.set_random_numbers(train_random_numbers)
-        
 
 
     if args.openmiir_augmentation != "no_augmentation":
@@ -82,7 +79,7 @@ if __name__ == "__main__":
     random.seed(42)
     valid_random_numbers = [random.randint(0, args.window_size - 375 - 1) for _ in range(1200)]
     valid_dataset.set_random_numbers(valid_random_numbers)  
-    
+
     valid_loader = DataLoader(
         valid_dataset,
         batch_size=args.batch_size,
@@ -103,8 +100,6 @@ if __name__ == "__main__":
             out_dim=train_dataset.labels(),
             kernal_size=3,
         )
-    
-
     print('EEG Contrastive learning')
     module = EEGContrastiveLearning(valid_dataset, args, encoder_eeg, encoder_audio)
     logger = TensorBoardLogger("runs/{}".format(args.training_date), name="nmed-CL-{}".format(args.dataset))
@@ -122,11 +117,11 @@ if __name__ == "__main__":
         log_every_n_steps=1,
         check_val_every_n_epoch=1,
         accelerator=args.accelerator,
-        resume_from_checkpoint="/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+        resume_from_checkpoint="checkpoint_example.ckpt"
     )
     print('[[[ START ]]]',datetime.datetime.now())
    
-    checkpoint_path = "/workdir/SonyCSL_EEG/RA/MSCSMLME-copy/CLMR/checkpoint_example.ckpt"
+    checkpoint_path = "checkpoint_example.ckpt"
     checkpoint = torch.load(checkpoint_path)
     module.load_state_dict(checkpoint['state_dict'])
     trainer.validate(module,dataloaders=valid_loader)

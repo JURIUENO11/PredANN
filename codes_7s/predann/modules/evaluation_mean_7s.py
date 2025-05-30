@@ -16,6 +16,7 @@ def setup_logger():
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     fh.setFormatter(formatter)
     logger.addHandler(fh)
+
     return logger
 
 debug_logger = setup_logger()
@@ -24,19 +25,15 @@ class EEGContrastiveLearning(LightningModule):
     def __init__(self, preprocess_dataset, args, encoder_eeg, encoder_audio):
         super().__init__()
         self.save_hyperparameters(args)
-
         self.encoder_eeg = encoder_eeg
         self.encoder_audio = encoder_audio
         self.criterion = self.configure_criterion()
-
         self.last_epoch_train_embeddings = []
         self.last_epoch_train_labels = []
         self.last_epoch_valid_embeddings = []
         self.last_epoch_valid_labels = []
-
         self.train_log_df = pd.DataFrame(columns=["Loss/train", "Accuracy/train_eeg", "Accuracy/train_audio"])
         self.valid_log_df = pd.DataFrame(columns=["Loss/valid", "Accuracy/valid_eeg", "Accuracy/valid_audio"])
-        
         self.validation_end_values = []
         self.preprocess_dataset = preprocess_dataset
         self.batch_accuracies = []
@@ -47,25 +44,23 @@ class EEGContrastiveLearning(LightningModule):
     def forward(self, r, c):
         y_eeg, z_eeg = self.encoder_eeg(r)
         y_audio, z_audio = self.encoder_audio(c)
+
         return y_eeg, y_audio, z_eeg, z_audio
     
     def on_validation_start(self):
         self.eval()
 
     def validation_step(self, batch, batch_idx):
-        
         eeg_data, audio_data = batch[:2]
         label = batch[2]
         subject = batch[3]
         subject = [int(sub) for sub in subject]
         subject = torch.tensor(subject, device=label.device)
  
-
         y_eeg_list=[]
         y_audio_list=[]
         z_eeg_list=[]
         z_audio_list=[]
-
        
         for eeg, audio in zip(eeg_data, audio_data):
             y_eeg, y_audio, z_eeg, z_audio = self.forward(eeg, audio)
@@ -92,7 +87,6 @@ class EEGContrastiveLearning(LightningModule):
 
         new_valid_log = pd.DataFrame({"Loss/valid": [loss.item()], "Accuracy/valid_eeg": [acc_r_av.item()], "Accuracy/valid_audio": [acc_c_av.item()]})
         self.valid_log_df = pd.concat([self.valid_log_df, new_valid_log ], ignore_index=True)
-  
 
         if self.current_epoch == self.trainer.max_epochs - 1:
             self.last_epoch_valid_embeddings.append(z_eeg.cpu().detach().numpy())
@@ -100,49 +94,48 @@ class EEGContrastiveLearning(LightningModule):
 
         return loss
 
-    
-    
-    
     def configure_criterion(self):
         if self.hparams.accelerator == "dp" and self.hparams.gpus:
             batch_size = int(self.hparams.batch_size / self.hparams.gpus)
         else:
             batch_size = self.hparams.batch_size
-        
        
         if self.hparams.loss_function == "predann_loss":
             print("use PredANN_loss as criterion")
             criterion = PredANN_Loss(batch_size, self.hparams.temperature,self.hparams.detach_z_audio, world_size=1)
         else:
             print('error')
+
         return criterion
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(chain(self.encoder_eeg.parameters(),self.encoder_audio.parameters()), self.hparams.learning_rate)
+
         return {"optimizer": optimizer}
 
 
     def tensor_calculate(self,list):
         softmax_list = [torch.nn.functional.softmax(tensor, dim=1) for tensor in list]
         tensor = torch.stack(softmax_list).mean(dim=0)
+
         return tensor
    
     def _shared_step(self, label, y):
         y_hat = y
         y = label
-
         loss = F.cross_entropy(y_hat, y)
         preds = torch.argmax(y_hat, dim=1)
         acc = (y == preds).sum() / y.size(0)
+
         return loss, acc
    
         
 
     def Kfold_log(self):
+
         return self.train_log_df, self.valid_log_df
 
     def save_checkpoint(self, filepath):
-      
         torch.save({
             'module_state_dict': self.state_dict(),
             'encoder_eeg_state_dict': self.encoder_eeg.state_dict(),
@@ -156,10 +149,8 @@ class EEGContrastiveLearning(LightningModule):
         self.encoder_eeg.load_state_dict(checkpoint['encoder_eeg_state_dict'])
         self.encoder_audio.load_state_dict(checkpoint['encoder_audio_state_dict'])
     
-        
         optimizer_config = self.configure_optimizers()
         optimizer = optimizer_config['optimizer']
-        
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         
         return optimizer
