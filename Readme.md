@@ -6,7 +6,7 @@ Two separate 2D CNNs are employed to process music and EEG data independently. T
 
 ## How to run codes
 ### Steps to Execute Experiments
-#### For 3s experiment
+#### For 3s experiment (train and validation)
 1. **Navigate to the appropriate folder**  
    - For a **3-second experiment**, go to the **`codes_3s`** directory.
 2. **Run the experiment**  
@@ -23,7 +23,7 @@ The experimental outcomes can be validated by examining the trained model saved 
    - The generated checkpoint files are stored in this directory and can be utilized for subsequent 7s experiments.  
    - To customize the checkpoint naming convention, modify the **`training_date`** parameter within the script **`sequential_3s.sh`**.  
 
-#### For 7s experiment
+#### For 7s experiment (validation only)
 1. **Navigate to the appropriate folder**  
    - For a **7-second experiment**, go to the **`codes_7s`** directory.
 2. **Specify the Evaluation Method**  
