@@ -61,7 +61,7 @@ You can monitor the experiment's progress by checking the log file
 
 ### Dataset Path Configuration
 To ensure successful execution, configure the dataset paths to match your local environment.
-- **Modify Dataset Path**
+- **Modify Dataset Path:**
   Update the dataset path in the following preprocessing scripts:
    - **`preprocessing_eegmusic_dataset_3s.py`**
    - **`preprocessing_eegmusic_dataset_7s.py`**.
@@ -75,7 +75,7 @@ To ensure successful execution, configure the dataset paths to match your local 
 
 ### Important Notes
 - Ensure that the dataset is preprocessed **before** running experiments.
-- Verify the checkpoint paths are correctly specified in the evaluation scripts. Incorrect paths will lead to runtime errors.
+- Verify that the checkpoint paths are correctly specified in the evaluation scripts. Incorrect paths will lead to runtime errors.
 - To maintain consistency with the experimental design, the evaluation segment length **must not exceed 8 seconds**.
 - The provided Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are pre-configured with default parameters.  
   Users may adjust these parameters according to their specific experimental requirements.
@@ -150,7 +150,7 @@ main_checkpoint_7s.py          # Main script for evaluating 7-second segments
 requirements.txt                     
 sequential_7s.sh               # Script for running the 7s experiments
 ```
-Please note that in the file ***main_checkpoint_7s.py***, the checkpoint path must be updated to correspond to the specific location of your checkpoint file. Additionally, the parameter ***evaluation_length*** can be modified to other durations, but it must not exceed 8 seconds (1000). Evaluations for 4s, 5s, 6s, and 7s have also been conducted using these codes by adjusting this parameter accordingly.
+Please note that in the file ***main_checkpoint_7s.py***, the checkpoint path must be updated to correspond to the specific location of your checkpoint file. Additionally, the parameter ***evaluation_length*** can be modified to other durations, but it must not exceed 8 seconds (EEG sampling rate 125 Hz). Evaluations for 4s, 5s, 6s, and 7s have also been conducted using these codes by adjusting this parameter accordingly.
 
 
 
