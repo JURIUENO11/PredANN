@@ -15,9 +15,7 @@ import datetime
 import random
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="PredANN")
-
     config = yaml_config_hook("./config/config.yaml")
     for k, v in config.items():
         parser.add_argument(f"--{k}", default=v, type=type(v))
@@ -25,7 +23,6 @@ if __name__ == "__main__":
     parser.add_argument('--evaluation_length', type=int)
     args = parser.parse_args()
     pl.seed_everything(args.seed, workers=True)
-
 
     train_transform = {}
     if args.openmiir_augmentation == "gaussiannoise":
@@ -61,8 +58,6 @@ if __name__ == "__main__":
     train_random_numbers = [random.randint(0, 125 * 30 - 375 - 1) for _ in range(1200)]
     train_dataset.set_random_numbers(train_random_numbers)
         
-
-
     if args.openmiir_augmentation != "no_augmentation":
         train_dataset.set_transform(train_transform)
     train_loader = DataLoader(
@@ -80,9 +75,6 @@ if __name__ == "__main__":
     random.seed(42)
     valid_random_numbers = [random.randint(0, args.window_size - 375 - 1) for _ in range(1200)]
     valid_dataset.set_random_numbers(valid_random_numbers)  
-    
-
-
     valid_loader = DataLoader(
         valid_dataset,
         batch_size=args.batch_size,
@@ -93,7 +85,6 @@ if __name__ == "__main__":
     print(f"Size of train dataset: {len(train_dataset)}")
     print(f"Size of valid dataset: {len(valid_dataset)}")
 
-
     if args.dataset == "preprocessing_eegmusic":
         encoder_eeg = SampleCNN2DEEG(
             out_dim=train_dataset.labels(),
@@ -103,13 +94,11 @@ if __name__ == "__main__":
             out_dim=train_dataset.labels(),
             kernal_size=3,
         )
-        
 
     print('EEG Contrastive learning')
     module = EEGContrastiveLearning(valid_dataset, args, encoder_eeg, encoder_audio)
 
     logger = TensorBoardLogger("runs/{}".format(args.training_date), name="nmed-CL-{}".format(args.dataset))
-
 
     early_stop_callback = EarlyStopping(
         monitor="Valid/loss", patience=10

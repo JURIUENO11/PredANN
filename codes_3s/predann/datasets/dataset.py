@@ -4,13 +4,11 @@ import torchaudio
 from torch.utils.data import Dataset as TorchDataset
 from abc import abstractmethod
 
-
 def preprocess_audio(source, target, sample_rate):
     p = subprocess.Popen(
         ["ffmpeg", "-i", source, "-ar", str(sample_rate), "-ac", "1", target, "-loglevel", "quiet"]
     )
     p.wait()
-
 
 class Dataset(TorchDataset):
 
@@ -26,6 +24,7 @@ class Dataset(TorchDataset):
     def target_file_path(self, n: int) -> str:
         fp = self.file_path(n)
         file_basename, _ = os.path.splitext(fp)
+        
         return file_basename + self._ext_audio
 
     def preprocess(self, n: int, sample_rate: int):
@@ -41,5 +40,7 @@ class Dataset(TorchDataset):
             audio, sample_rate = torchaudio.load(target_fp)
         except OSError as e:
             print("File not found, try running `python preprocess.py` first.\n\n", e)
+
             return
+        
         return audio, sample_rate

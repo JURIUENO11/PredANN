@@ -1,9 +1,7 @@
 import os
 import yaml
 
-
 def yaml_config_hook(config_file):
-
     with open(config_file) as f:
         cfg = yaml.safe_load(f)
         for d in cfg.get("defaults", []):

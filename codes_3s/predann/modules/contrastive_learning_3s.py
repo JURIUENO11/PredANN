@@ -16,6 +16,7 @@ def setup_logger():
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     fh.setFormatter(formatter)
     logger.addHandler(fh)
+
     return logger
 
 debug_logger = setup_logger()
@@ -47,9 +48,9 @@ class EEGContrastiveLearning(LightningModule):
     def forward(self, r, c):
         y_eeg, z_eeg = self.encoder_eeg(r)
         y_audio, z_audio = self.encoder_audio(c)
+
         return y_eeg, y_audio, z_eeg, z_audio
     
-
     def training_step(self, batch, batch_idx):
         eeg, audio = batch[:2]
         y_eeg, y_audio, z_eeg, z_audio = self.forward(eeg, audio)
@@ -73,7 +74,6 @@ class EEGContrastiveLearning(LightningModule):
             self.last_epoch_train_labels.extend(label.cpu().numpy())
             
         return loss
-
 
     def on_validation_start(self):
         self.eval()
@@ -102,6 +102,7 @@ class EEGContrastiveLearning(LightningModule):
 
         new_valid_log = pd.DataFrame({"Loss/valid": [loss.item()], "Accuracy/valid_eeg": [acc_r.item()], "Accuracy/valid_audio": [acc_c.item()]})
         self.valid_log_df = pd.concat([self.valid_log_df, new_valid_log ], ignore_index=True)
+
         return loss
     
     def configure_criterion(self):
@@ -121,10 +122,9 @@ class EEGContrastiveLearning(LightningModule):
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(chain(self.encoder_eeg.parameters(),self.encoder_audio.parameters()), self.hparams.learning_rate)
+
         return {"optimizer": optimizer}
 
-
-   
     def _shared_step(self, label, y):
         y_hat = y
         y = label
@@ -132,11 +132,11 @@ class EEGContrastiveLearning(LightningModule):
         loss = F.cross_entropy(y_hat, y)
         preds = torch.argmax(y_hat, dim=1)
         acc = (y == preds).sum() / y.size(0)
+
         return loss, acc
-   
-        
 
     def Kfold_log(self):
+
         return self.train_log_df, self.valid_log_df
 
     def save_checkpoint(self, filepath):
@@ -152,11 +152,9 @@ class EEGContrastiveLearning(LightningModule):
         self.load_state_dict(checkpoint['module_state_dict'])
         self.encoder_eeg.load_state_dict(checkpoint['encoder_eeg_state_dict'])
         self.encoder_audio.load_state_dict(checkpoint['encoder_audio_state_dict'])
-     
         
         optimizer_config = self.configure_optimizers()
         optimizer = optimizer_config['optimizer']
-        
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         
         return optimizer

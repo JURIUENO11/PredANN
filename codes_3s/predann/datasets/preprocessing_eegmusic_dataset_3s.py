@@ -15,6 +15,7 @@ from sklearn.model_selection import train_test_split, KFold
 from audiomentations import Compose
 from predann.datasets import Dataset
 from typing import Any, Tuple, Optional, List
+
 def setup_logger():
     if os.path.exists('dataloader_debug.log'):
         os.remove('dataloader_debug.log')
@@ -24,10 +25,10 @@ def setup_logger():
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     fh.setFormatter(formatter)
     logger.addHandler(fh)
+
     return logger
 
 debug_logger = setup_logger()
-
 
 def get_file_list(root, class_song_id):
     class_song_id = list(map(int, class_song_id.strip('[]').split(',')))
@@ -39,7 +40,6 @@ def get_file_list(root, class_song_id):
     EEG_path_list =[p for p in glob.glob(os.path.join(BASE, '*.pkl'), recursive=True) if os.path.isfile(p)]
     EEG_path_list = sorted(EEG_path_list)
 
-
     BASE = os.path.join(root, "audio")
     if not os.path.exists(BASE):
         raise RuntimeError('BASE folder is not found')
@@ -49,8 +49,6 @@ def get_file_list(root, class_song_id):
     df = pd.DataFrame(columns=['subject', 'song', 'trial', "eeg_path", "audio_path"])
     
     for idx, r_path in enumerate(EEG_path_list):
-
-
         r_name = os.path.splitext(os.path.basename(r_path))[0]
         r_song_id = int(r_name.split('_')[1])
         index_of_song = class_song_id.index(r_song_id)
@@ -109,13 +107,14 @@ def K_split_valid(df,fold_num):
         if fold == fold_num:
             train_df = df.iloc[train_index]
             test_df = df.iloc[valid_index]
+
     return train_df, test_df
 
 def check_accessed_data(chunk_length,window_size,stride):
     accessed_data = np.zeros(((int((chunk_length-window_size)/stride)+1)*400, window_size))
     print("check")
-    return accessed_data
 
+    return accessed_data
 
 from scipy.signal import butter, filtfilt
 
@@ -128,8 +127,7 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
     return y
 
 class Preprocessing_EEGMusic_dataset(Dataset):
-
-    _base_dir = "/workdir/share/NMED/NMED-T/NMED-T_dataset"
+    _base_dir = "/dataset/NMED-T_dataset"
 
     def __init__(
         self,
@@ -164,7 +162,6 @@ class Preprocessing_EEGMusic_dataset(Dataset):
         self.mode = None
         self.start = []
         self.start_value = 0
-
         self.fs = 125.0       
         self.lowcut = 1.0     
         self.highcut = 50.0   
@@ -187,7 +184,6 @@ class Preprocessing_EEGMusic_dataset(Dataset):
             elif self.subset == "test" or self.subset == "valid":
                 self.df_subset = df_test
  
-
     def file_path(self, n: int) -> str:
         pass
 
@@ -206,7 +202,6 @@ class Preprocessing_EEGMusic_dataset(Dataset):
 
         if self.train_test_splitting=='random_split_5s':
             self.df = get_5s_file(self.df)
-
             
         if self.train_test_splitting=='random_split_30s':
             self.df = get_30s_file(self.df)
@@ -234,17 +229,16 @@ class Preprocessing_EEGMusic_dataset(Dataset):
         elif self.subset == "test" or self.subset == "valid":
             self.df_subset = df_test
 
-
     def set_random_numbers(self, random_numbers):
         self.random_numbers = random_numbers
 
-    
     def set_sliding_window_parameters(self, window_size, stride):
         self.window_size = window_size
         self.stride = stride
 
     def labels(self):
         num_label = len(self.df_subset.song.unique())
+
         return num_label
 
     def set_eeg_normalization(self, eeg_normalization, clamp_value=None):
@@ -273,8 +267,8 @@ class Preprocessing_EEGMusic_dataset(Dataset):
 
     def K_split_random(self, k=4, random_state=42):
         kf = KFold(n_splits=k, shuffle=True, random_state=random_state)
-        return (kf.split(self.df_subset))
-    
+
+        return (kf.split(self.df_subset))  
 
     def getitem(self, n, isClip=True):
         p=self.start_position
@@ -317,10 +311,9 @@ class Preprocessing_EEGMusic_dataset(Dataset):
             eeg_start = random.randint(int((self.audio_clip-3)/2*125), int(eeg_length-self.eeg_clip_length-(self.audio_clip-3)/2*125-1))
             eeg = eeg[:, eeg_start : eeg_start + self.eeg_clip_length]
 
-            audio_start = int(eeg_start/125 * 44100)-int((self.audio_clip-3)/2*125)
+            audio_start = int(eeg_start/125 * 44100)+int((self.audio_clip-3)/2*125)
             audio = audio[:, int(audio_start) : int(audio_start + self.audio_clip * 44100)] 
             debug_logger.debug(f"audio, {audio.shape}")
-
 
         if self.eeg_normalization == "channel_mean":
             eeg = self.normalize_EEG(eeg)
@@ -382,17 +375,16 @@ class Preprocessing_EEGMusic_dataset(Dataset):
                 audio = F.pad(audio, padding2)
         else:
             assert "eeg_clip_length error"
+
         return eeg, audio, label
-
-
 
     def __getitem__(self, n: int) -> Tuple[Tensor, Tensor]:
         eeg, audio, song_id= self.getitem(n)
+
         return eeg, audio, song_id
 
-        
-
     def __len__(self) -> int:
+
         return len(self.df_subset)
 
     def normalize_EEG(self,eeg):
@@ -400,6 +392,7 @@ class Preprocessing_EEGMusic_dataset(Dataset):
         eeg=eeg-eeg_mean.unsqueeze(1)
         max_eeg=torch.max(abs(eeg),1)
         eeg=eeg/max_eeg.values.unsqueeze(1)
+
         return eeg
     
     def normalize_EEG_2(self,eeg):
@@ -407,10 +400,12 @@ class Preprocessing_EEGMusic_dataset(Dataset):
         eeg=eeg-eeg_mean.unsqueeze(1)
         max_eeg=torch.max(abs(eeg),1)
         eeg=eeg/max_eeg.values.unsqueeze(1)
+
         return eeg
 
     def normalize_EEG_3(self,eeg):
         eeg=100*eeg
+
         return eeg
 
     def normalize_EEG_4(self,eeg,clamp_value):
@@ -421,11 +416,13 @@ class Preprocessing_EEGMusic_dataset(Dataset):
             eeg[idx] = ch_eeg.view(1,-1)
 
         eeg = torch.clamp(eeg, min=int(-1*clamp_value), max=int(clamp_value))
+
         return eeg
 
 
     def get_last_iteration_value(self):
         if self.subset == "SW_valid": 
+            
             return self.start_value
 
     def check_access(self,n):
