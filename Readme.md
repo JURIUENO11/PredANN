@@ -74,7 +74,7 @@ To ensure successful execution, configure the dataset paths to match your local 
      These scripts include the necessary parameters for their respective experiments.
 
 ### Important Notes
-- Ensure that the dataset is preprocessed **before** running experiments.
+- Ensure that the dataset is preprocessed **before** running experiments. (**`mat_to_pkl.py`** is provided for converting the raw .mat files into the .pkl format expected by the repository.)
 - Verify that the checkpoint paths are correctly specified in the evaluation scripts. Incorrect paths will lead to runtime errors.
 - To maintain consistency with the experimental design, the evaluation segment length **must not exceed 8 seconds**.
 - The provided Sequential scripts (**`sequential_3s.sh`** and **`sequential_7s.sh`**) are pre-configured with default parameters.  
